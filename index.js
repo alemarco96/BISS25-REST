@@ -25,9 +25,9 @@ const BM25_B = 0.75;
 
 
 // Store the data associated with each document.
-let _docs_data = Map();
+let _docs_data = new Map();
 // Auxilliary data structure used during search phase.
-let _inverted_index = Map();
+let _inverted_index = new Map();
 // Store the sum of length of every document in the collection.
 let _sum_length = 0;
 
@@ -41,7 +41,7 @@ function analyze_document(doc_text) {
     doc_text = doc_text.replaceAll(SPACE_REGEX, " ");
     let words = doc_text.split(" ");
 
-    let doc_words = Map();
+    let doc_words = new Map();
     for (let k of words) {
         let freq = doc_words.get(k);
         if (freq === undefined) { freq = 0; }
@@ -90,7 +90,7 @@ app.post(BASE_URL + "/docs", (req, res) => {
     // Update the inverted index.
     for (let [k, v] of doc_data) {
         let new_v = _inverted_index.get(k);
-        if (new_v === undefined) { new_v = Set(); }
+        if (new_v === undefined) { new_v = new Set(); }
         new_v.add(k);
 
         _inverted_index.set(k, new_v);
@@ -123,7 +123,7 @@ app.get(BASE_URL + "/docs/:doc_id", (req, res) => {
         return;
     }
 
-    res.send(_docs_data.get(doc_id).doc_text);
+    res.send({ doc_text: _docs_data.get(doc_id).doc_text });
 });
 
 
@@ -165,7 +165,7 @@ app.put(BASE_URL + "/docs/:doc_id", (req, res) => {
     // in the inverted index.
     for (let k of keys_to_add) {
         let new_v = _inverted_index.get(k);
-        if (new_v === undefined) { new_v = Set(); }
+        if (new_v === undefined) { new_v = new Set(); }
         new_v.add(doc_id);
 
         _inverted_index.set(k, new_v);
@@ -264,7 +264,7 @@ app.get(BASE_URL + "/search", (req, res) => {
     // then keep only the top-k best documents.
     result = Array.from(result).sort((x, y) => y[1] - x[1]);
     result = result.slice(0, num_docs);
-    result = Map(result);
+    result = new Map(result);
 
     res.send({
         num_results: result.length,
