@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Simple IR System</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Add a document to the Index</h1>
+
+            <div class="controls">
+                <div class="input-group">
+                    <label for="add_doc_id">Doc ID:</label>
+                    <input type="text" id="add_doc_id">
+
+                    <label for="add_doc_text">Doc Text:</label>
+                    <input type="text" id="add_doc_text">
+                </div>
+
+                <button id="add_btn">Add Document</button>
+        </div>
+
+        <div class="container">
+            <h1>Get the Text of a Document</h1>
+
+            <div class="controls">
+                <div class="input-group">
+                    <label for="get_doc_id">Doc ID:</label>
+                    <input type="text" id="get_doc_id">
+                </div>
+
+                <button id="get_btn">Get Document Text</button>
+            </div>
+
+            <div class="result">
+                <label for="get_doc_text">Document Text:</label>
+                <input type="text" id="get_doc_text" readonly>
+            </div>
+        </div>
+
+        <div class="container">
+            <h1>Perform Search using BM25</h1>
+        
+            <div class="controls">
+                <div class="input-group">
+                    <label for="text_search_term_1">Search Term #1:</label>
+                    <input type="text" id="text_search_term_1">
+
+                    <label for="text_search_term_2">Search Term #2:</label>
+                    <input type="text" id="text_search_term_2">
+
+                    <label for="text_search_term_3">Search Term #3:</label>
+                    <input type="text" id="text_search_term_3">
+
+                    <label for="text_search_term_4">Search Term #4:</label>
+                    <input type="text" id="text_search_term_4">
+                </div>
+
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="search_term_1" checked>
+                        Use Search Term #1
+                    </label>
+                    <label>
+                        <input type="checkbox" id="search_term_2">
+                        Use Search Term #2
+                    </label>
+                    <label>
+                        <input type="checkbox" id="search_term_3">
+                        Use Search Term #3
+                    </label>
+                    <label>
+                        <input type="checkbox" id="search_term_4">
+                        Use Search Term #4
+                    </label>
+                </div>
+
+                <button id="search_btn">Perform Search</button>
+            </div>
+
+            <div class="result">
+                <label for="id_result_1">#1:</label>
+                <input type="text" id="id_result_1" readonly>
+                <input type="text" id="score_result_1" readonly>
+
+                <label for="id_result_2">#2:</label>
+                <input type="text" id="id_result_2" readonly>
+                <input type="text" id="score_result_2" readonly>
+
+                <label for="id_result_3">#3:</label>
+                <input type="text" id="id_result_3" readonly>
+                <input type="text" id="score_result_3" readonly>
+
+                <label for="id_result_4">#4:</label>
+                <input type="text" id="id_result_4" readonly>
+                <input type="text" id="score_result_4" readonly>
+
+                <label for="id_result_5">#5:</label>
+                <input type="text" id="id_result_5" readonly>
+                <input type="text" id="score_result_5" readonly>
+            </div>
+
+            <div id="error" class="hidden">
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

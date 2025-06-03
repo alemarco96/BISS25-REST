@@ -1,0 +1,22 @@
+{
+  "name": "biss25-rest",
+  "version": "1.0.0",
+  "description": "Individual project for BISS25 \"Service Engineering: From Design to Operational\" course at BISS 2025 Summer School @ Bertinoro (FC). Student: Marco Alessio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alemarco96/BISS25-REST.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alemarco96/BISS25-REST/issues"
+  },
+  "homepage": "https://github.com/alemarco96/BISS25-REST#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
