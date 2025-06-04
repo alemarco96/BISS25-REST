@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const doc_id = document.getElementById("add_doc_id").textContent;
         const doc_text = document.getElementById("add_doc_text").textContent;
         
+        const add_doc_result = document.getElementById("add_doc_result");
+        add_doc_result.textContent = `${doc_id} = ${doc_text}`;
+
+        /*
         const response = await fetch(BASE_URL + '/docs', {
             method: 'POST',
             headers: {
@@ -45,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showError(data.error || 'Unknown error');
             // throw new Error(data.error || 'Unknown error');
         }
+        */
     }
 
 
