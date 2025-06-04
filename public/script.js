@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
                 console.log(`\tresponse:`, data);
+                console.log(data.num_results, data.docs);
                 if (data.num_results >= 1) {
                     id_result_1.value = data.docs[0][0];
                     score_result_1.value = data.docs[0][1];
