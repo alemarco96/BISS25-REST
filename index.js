@@ -77,15 +77,21 @@ app.post(BASE_URL + "/docs", (req, res) => {
     const doc_id = req.body.doc_id;
     const doc_text = req.body.doc_text;
 
+    console.log(`POST /docs(): ${doc_id} = ${doc_text}`);
+
     // Determine whether a document with the same id does already exist.
     if (_docs_data.has(doc_id)){
         res.sendStatus(409, `The document ${doc_id} already exists.`);
         return;
     }
 
+    console.log(`\tDocument ${doc_id} is novel`);
+
     // Analyze the text, to determine its relevant features.
     let doc_data = analyze_document(doc_text);
     _docs_data.set(doc_id, doc_data);
+
+    console.log(`\t${doc_data}`);
 
     // Update the inverted index.
     for (let [k, v] of doc_data) {
@@ -98,6 +104,11 @@ app.post(BASE_URL + "/docs", (req, res) => {
 
     // Update the sum of lengths.
     _sum_length += doc_data.length;
+
+    console.log(`\tInternal data updated`);
+    console.log(`\t${_docs_data}`);
+    console.log(`\t${_inverted_index}`);
+    console.log(`\t${_sum_length}`);
 
     res.sendStatus(200, `Document ${doc_id} created.`);
 });
