@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     search_btn.addEventListener('click', perform_search);
 
 
-    const BASE_URL = "https://biss25-rest.onrender.com";
+    const BASE_URL = "https://biss25-rest.onrender.com/api/v1";
 
 
     function showError(message) {
