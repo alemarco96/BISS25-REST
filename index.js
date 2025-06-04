@@ -37,9 +37,13 @@ let _sum_length = 0;
 
 // Split a textual document into a sequence of words.
 function analyze_document(doc_text) {
+    console.log(doc_text);
     doc_text = doc_text.replaceAll(SEP_REGEX, " ");
+    console.log(doc_text);
     doc_text = doc_text.replaceAll(SPACE_REGEX, " ");
+    console.log(doc_text);
     let words = doc_text.split(" ");
+    console.log(JSON.stringify(words));
 
     let doc_words = new Map();
     for (let k of words) {
@@ -54,6 +58,8 @@ function analyze_document(doc_text) {
     result.set("text", doc_text);
     result.set("words", doc_words);
     result.set("length", words.length);
+    console.log(JSON.stringify(result));
+
     return result;
 
     /*
