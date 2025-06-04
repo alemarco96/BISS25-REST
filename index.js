@@ -78,7 +78,7 @@ function analyze_document(doc_text) {
 
 // Compute the TF part of the BM25 scoring.
 function tf(f, l, avg_l) {
-    console.log(`** TF **`. f, l, avg_l, BM25_K1, BM25_B);
+    console.log(`** TF **`, f, l, avg_l, BM25_K1, BM25_B);
     console.log(f * (BM25_K1 + 1), (1 - BM25_B + BM25_B * (l / avg_l)));
     console.log(f + BM25_K1 * (1 - BM25_B + BM25_B * (l / avg_l)));
     return (f * (BM25_K1 + 1)) / (f + BM25_K1 * (1 - BM25_B + BM25_B * (l / avg_l)));
@@ -324,8 +324,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
             console.log(`\tdoc_data.words.get(t):`, typeof(doc_data.get("words").get(t)), doc_data.get("words").get(t), "\n");
 
             // Compute the TF part of the BM25 scoring.
-            const score_tf = tf(doc_data.get("words").get(t), doc_data.length,
-                avg_length);
+            const score_tf = tf(doc_data.get("words").get(t), doc_data.length, avg_length);
             console.log(`\tTF: ${score_tf}`);
             const new_score = score_tf * score_idf;
             console.log(`\tnew_score: ${new_score}`);
