@@ -115,10 +115,10 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
 
         // Analyze the text, to determine its relevant features.
         const doc_data = analyze_document(doc_text);
-        console.log(JSON.stringify(doc_data));
+        console.log(doc_data, JSON.stringify(doc_data));
 
         _docs_data.set(doc_id, doc_data);
-        console.log(JSON.stringify(_docs_data));
+        console.log(_docs_data, JSON.stringify(_docs_data));
 
         // Update the inverted index.
         for (let [k, v] of doc_data) {
@@ -129,7 +129,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
             _inverted_index.set(k, new_v);
         }
 
-        console.log(JSON.stringify(_inverted_index));
+        console.log(_inverted_index, JSON.stringify(_inverted_index));
 
         // Update the sum of lengths.
         _sum_length += doc_data.get("length");
