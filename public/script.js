@@ -22,6 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     async function add_document() {
         error_div.classList.add('hidden');
 
+        const q1 = document.getElementById("add_doc_id");
+        const q2 = document.getElementById("add_doc_text");
+        console.log(q1);
+        console.log(q2);
+
         const doc_id = document.getElementById("add_doc_id").textContent;
         const doc_text = document.getElementById("add_doc_text").textContent;
         
