@@ -77,6 +77,13 @@ function idf(n, N) {
     return Math.log2(1 + ((2 * (N - n) + 1) / (2 * (n) + 1)));
 }
 
+
+function printMap(x) {
+    for (let [k, v] of x) {
+        console.log(`${k} => ${v}`);
+    }
+}
+
 // --------------------------------------------------------------------------------
 
 // Post a new document.
@@ -101,7 +108,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         let doc_data = analyze_document(doc_text);
         _docs_data.set(doc_id, doc_data);
 
-        console.log(`\t${doc_data}`);
+        printMap(doc_data);
 
         // Update the inverted index.
         for (let [k, v] of doc_data) {
@@ -117,8 +124,8 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         //_sum_length += doc_data.length;
 
         console.log(`\tInternal data updated`);
-        console.log(`\t${_docs_data}`);
-        console.log(`\t${_inverted_index}`);
+        printMap(_docs_data);
+        printMap(_inverted_index);
         console.log(`\t${_sum_length}`);
 
         res.sendStatus(200, `Document ${doc_id} created.`);
@@ -156,8 +163,6 @@ app.get(`${BASE_URL}/docs/:doc_id`, (req, res) => {
         result = new Map();
         result.set("doc_text", _docs_data.get(doc_id).doc_text);
         res.send(result);
-
-        //res.send({ doc_text: _docs_data.get(doc_id).doc_text });
     }
     catch (error) {
         console.error(error);
@@ -263,7 +268,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
     let avg_length = _sum_length / _docs_data.size;
 
     // Store the scores associated with the documents.
-    let result = Map();
+    let retrieval = Map();
 
     for (let t of terms) {
         // Remove any useless character.
@@ -287,27 +292,27 @@ app.get(`${BASE_URL}/search`, (req, res) => {
             const new_score = score_tf * score_idf;
 
             // Find the partial score for the current document.
-            old_score = result.get(doc_id);
+            old_score = retrieval.get(doc_id);
             if (old_score === undefined) { old_score = 0.0; }
 
             // Update the partial score of the current document.
             const score = old_score + new_score;
             if (score > 0.0) {
-                result.set(doc_id, score);
+                retrieval.set(doc_id, score);
             }
         }
     }
 
     // Sort the result map by score in descending order,
     // then keep only the top-k best documents.
-    result = Array.from(result).sort((x, y) => y[1] - x[1]);
-    result = result.slice(0, num_docs);
-    result = new Map(result);
+    retrieval = Array.from(retrieval).sort((x, y) => y[1] - x[1]);
+    retrieval = result.slice(0, num_docs);
+    retrieval = new Map(retrieval);
 
-    res.send({
-        num_results: result.length,
-        docs: result
-    });
+    result = new Map();
+    result.set("num_results", result.length);
+    result.set("docs", result);
+    res.send(result);
 });
 
 
