@@ -87,6 +87,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         const doc_text = req.body.doc_text;
 
         console.log(`POST /docs: ${doc_id} = ${doc_text}`);
+        console.log(req);
 
         // Determine whether a document with the same id does already exist.
         if (_docs_data.has(doc_id)){
@@ -143,6 +144,7 @@ app.get(`${BASE_URL}/docs/:doc_id`, (req, res) => {
     const doc_id = req.params.doc_id;
 
     console.log(`GET /docs/:doc_id: ${doc_id}`);
+    console.log(req);
 
     // Determine whether a document with the same id does already exist.
     if (!_docs_data.has(doc_id)){
