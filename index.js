@@ -276,43 +276,60 @@ app.get(`${BASE_URL}/search`, (req, res) => {
     let retrieval = new Map();
 
     for (let t of terms) {
+        console.log(`\tterm: ${t}`);
+
         // Remove any useless character.
         t = t.replaceAll(SEP_REGEX, "");
+        console.log(`\tterm: ${t}`);
 
         // Get the posting list associated with term t.
         let v = _inverted_index.get(t);
         if (v === undefined) { continue; }
         if (v.size == 0) { continue; }
 
+        console.log(`\tterm: ${t} - Step 1`);
+
         // Compute the IDF part of the BM25 scoring.
         const score_idf = idf(v.size, _docs_data.size);
+
+        console.log(`\tterm: ${t} - Step 2`);
 
         // Loop through each document in the posting list of term t.
         for (let doc_id of v) {
             let doc_data = _docs_data.get(doc_id);
+
+            console.log(`\tterm: ${t} - Step 3.1`);
 
             // Compute the TF part of the BM25 scoring.
             const score_tf = tf(doc_data.words.get(t), doc_data.length,
                 avg_length);
             const new_score = score_tf * score_idf;
 
+            console.log(`\tterm: ${t} - Step 3.2`);
+
             // Find the partial score for the current document.
             old_score = retrieval.get(doc_id);
             if (old_score === undefined) { old_score = 0.0; }
+
+            console.log(`\tterm: ${t} - Step 3.3`);
 
             // Update the partial score of the current document.
             const score = old_score + new_score;
             if (score > 0.0) {
                 retrieval.set(doc_id, score);
             }
+
+            console.log(`\tterm: ${t} - Step 3.4`);
         }
     }
 
     printMap(retrieval);
+    console.log(`\tterm: ${t} - Step 4`);
 
     // Sort the result map by score in descending order,
     // then keep only the top-k best documents.
     retrieval = Array.from(retrieval).sort((x, y) => y[1] - x[1]);
+    console.log(`\tterm: ${t} - Step 5`);
     console.log(retrieval);
     console.log(typeof(retrieval));
     retrieval = result.slice(0, num_docs);
