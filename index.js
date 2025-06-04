@@ -269,6 +269,10 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         return;
     }
 
+    console.log("Inverted Index:\n\n")
+    printMap(_inverted_index);
+    console.log("\n\n");
+
     // Determine the average length of documents.
     let avg_length = _sum_length / _docs_data.size;
 
@@ -324,12 +328,12 @@ app.get(`${BASE_URL}/search`, (req, res) => {
     }
 
     printMap(retrieval);
-    console.log(`\tterm: ${t} - Step 4`);
+    console.log(`\tRetrieval performed`);
 
     // Sort the result map by score in descending order,
     // then keep only the top-k best documents.
     retrieval = Array.from(retrieval).sort((x, y) => y[1] - x[1]);
-    console.log(`\tterm: ${t} - Step 5`);
+    console.log(`\tSorting performed`);
     console.log(retrieval);
     console.log(typeof(retrieval));
     retrieval = result.slice(0, num_docs);
