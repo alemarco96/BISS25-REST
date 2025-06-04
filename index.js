@@ -317,11 +317,11 @@ app.get(`${BASE_URL}/search`, (req, res) => {
 
             console.log(`\tterm: ${t} - Step 3.1`);
             console.log(`\tdoc_data:`, typeof(doc_data), doc_data, "\n");
-            console.log(`\tdoc_data.words:`, typeof(doc_data["words"]), doc_data["words"], "\n");
-            console.log(`\tdoc_data.words.get(t):`, typeof(doc_data["words"][t]), doc_data["words"][t], "\n");
+            console.log(`\tdoc_data.words:`, typeof(doc_data.get("words")), doc_data.get("words"), "\n");
+            console.log(`\tdoc_data.words.get(t):`, typeof(doc_data.get("words").get(t)), doc_data.get("words").get(t), "\n");
 
             // Compute the TF part of the BM25 scoring.
-            const score_tf = tf(doc_data["words"].get(t), doc_data.length,
+            const score_tf = tf(doc_data.get("words").get(t), doc_data.length,
                 avg_length);
             console.log(`\tTF: ${score_tf}`);
             const new_score = score_tf * score_idf;
