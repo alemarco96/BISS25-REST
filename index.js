@@ -115,10 +115,10 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
 
         // Analyze the text, to determine its relevant features.
         const doc_data = analyze_document(doc_text);
-        console.log(doc_data, JSON.stringify(doc_data));
+        console.log(doc_data);
 
         _docs_data.set(doc_id, doc_data);
-        console.log(_docs_data, JSON.stringify(_docs_data));
+        console.log(_docs_data);
 
         // Update the inverted index.
         for (let [k, v] of doc_data.get("words")) {
@@ -131,7 +131,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
             _inverted_index.set(k, new_v);
         }
 
-        console.log(_inverted_index, JSON.stringify(_inverted_index));
+        console.log(_inverted_index);
 
         // Update the sum of lengths.
         _sum_length += doc_data.get("length");
@@ -282,7 +282,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         return;
     }
 
-    console.log(`Inverted Index:\n\n${_inverted_index}\n\n${JSON.stringify(_inverted_index)}\n\n`)
+    console.log(`Inverted Index:`, _inverted_index, `\n\n`);
 
     // Determine the average length of documents.
     let avg_length = _sum_length / _docs_data.size;
@@ -303,7 +303,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         if (v.size == 0) { continue; }
 
         console.log(`\tterm: ${t} - Step 1`);
-        console.log(`\tposting list of ${t}: ${v}`);
+        console.log(`\tPosting list of ${t}`, v);
 
         // Compute the IDF part of the BM25 scoring.
         const score_idf = idf(v.size, _docs_data.size);
@@ -316,7 +316,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
             const doc_data = _docs_data.get(doc_id);
 
             console.log(`\tterm: ${t} - Step 3.1`);
-            console.log(`\tdoc_data: ${doc_data}`);
+            console.log(`\tdoc_data:`, doc_data);
 
             // Compute the TF part of the BM25 scoring.
             const score_tf = tf(doc_data.words.get(t), doc_data.length,
@@ -342,11 +342,11 @@ app.get(`${BASE_URL}/search`, (req, res) => {
             }
 
             console.log(`\tterm: ${t} - Step 3.4`);
-            console.log(`\tretrieval: ${retrieval}`);
+            console.log(`\tretrieval:`, retrieval);
         }
     }
 
-    console.log(`\tRetrieval performed:\n\n${JSON.stringify(retrieval)}\n\n`)
+    console.log(`\tRetrieval performed:\n`, retrieval, `\n\n`)
 
     // Sort the result map by score in descending order,
     // then keep only the top-k best documents.
