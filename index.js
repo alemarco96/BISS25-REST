@@ -121,7 +121,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         console.log(_docs_data, JSON.stringify(_docs_data));
 
         // Update the inverted index.
-        for (let [k, v] of doc_data) {
+        for (let [k, v] of doc_data.get("words")) {
             console.log(`\tfor loop - ${k}: ${typeof(k)} => ${v}: ${typeof(v)}`);
 
             let new_v = _inverted_index.get(k);

@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function add_document() {
         try {
+            const add_doc_result = document.getElementById("add_doc_result");
+            add_doc_result.value = ``;
             error_div.classList.add('hidden');
 
             const doc_id = document.getElementById("add_doc_id").value;
