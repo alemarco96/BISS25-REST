@@ -309,6 +309,8 @@ app.get(`${BASE_URL}/search`, (req, res) => {
     // Sort the result map by score in descending order,
     // then keep only the top-k best documents.
     retrieval = Array.from(retrieval).sort((x, y) => y[1] - x[1]);
+    console.log(retrieval);
+    console.log(typeof(retrieval));
     retrieval = result.slice(0, num_docs);
     retrieval = new Map(retrieval);
 
