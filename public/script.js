@@ -22,14 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function add_document() {
         error_div.classList.add('hidden');
 
-        const q1 = document.getElementById("add_doc_id");
-        const q2 = document.getElementById("add_doc_text");
-        console.log(q1);
-        console.log(q2);
-
         const doc_id = document.getElementById("add_doc_id").value;
-        const doc_text = document.getElementById("add_doc_text").value;
-        
+        const doc_text = document.getElementById("add_doc_text").value;        
         console.log(`add_document(): ${doc_id} = ${doc_text}`);
 
         const response = await fetch(`${BASE_URL}/docs`, {
@@ -42,12 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 doc_text
             })
         });
-
         console.log(`\tfetch() called`);
-
-        //const data = await response.json();
-
-        //console.log(`\tresponse: ${data}`);
 
         if (response.ok) {
             console.log(`\tAdd Document ${doc_id} Performed Successfully!`);
@@ -56,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
             add_doc_result.value = `Add Document ${doc_id} Performed Successfully!`;
         } else {
             console.log(`\tError: ${data.error || `Unknown error`}`);
+
             showError(data.error || 'Unknown error');
-            // throw new Error(data.error || 'Unknown error');
         }
     }
 
@@ -66,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         error_div.classList.add('hidden');
 
         const doc_id = document.getElementById("get_doc_id").value;
-
         console.log(`get_document(): ${doc_id}`);
 
         const response = await fetch(`${BASE_URL}/docs/:doc_id`, {
@@ -78,11 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 doc_id
             })
         });
-
         console.log(`\tfetch() called`);
 
         const data = await response.json();
-
         console.log(`\tresponse: ${data}`);
 
         if (response.ok) {
