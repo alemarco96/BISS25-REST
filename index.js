@@ -16,8 +16,8 @@ const BASE_URL = "/api/v1";
 // Define the variables containing the data for the project.
 
 // Regular expressions used in the analysis of textual documents.
-const SEP_REGEX = /[^A-Za-z0-9]+/i;
-const SPACE_REGEX = /[ ]+/i;
+const SEP_REGEX = /[^A-Za-z0-9]+/g;
+const SPACE_REGEX = /[ ]+/g;
 
 // Hyperparameters of BM25 scoring function.
 const BM25_K1 = 1.2;
