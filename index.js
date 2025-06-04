@@ -267,7 +267,7 @@ app.delete(`${BASE_URL}/docs/:doc_id`, (req, res) => {
 
 // Perform search using BM25 scoring function.
 app.get(`${BASE_URL}/search`, (req, res) => {
-    console.log(JSON.stringify(req.query));
+    console.log(req.query, JSON.stringify(req.query));
 
     // Extract the input data from the request body.
     const terms = req.query.query.split(";");
@@ -282,7 +282,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         return;
     }
 
-    console.log(`Inverted Index:\n\n${JSON.stringify(_inverted_index)}\n\n`)
+    console.log(`Inverted Index:\n\n${_inverted_index}\n\n${JSON.stringify(_inverted_index)}\n\n`)
 
     // Determine the average length of documents.
     let avg_length = _sum_length / _docs_data.size;
@@ -298,43 +298,51 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         console.log(`\tterm: ${t}`);
 
         // Get the posting list associated with term t.
-        let v = _inverted_index.get(t);
+        const v = _inverted_index.get(t);
         if (v === undefined) { continue; }
         if (v.size == 0) { continue; }
 
         console.log(`\tterm: ${t} - Step 1`);
+        console.log(`\tposting list of ${t}: ${v}`);
 
         // Compute the IDF part of the BM25 scoring.
         const score_idf = idf(v.size, _docs_data.size);
 
         console.log(`\tterm: ${t} - Step 2`);
+        console.log(`\tIDF: ${score_idf}`);
 
         // Loop through each document in the posting list of term t.
         for (let doc_id of v) {
-            let doc_data = _docs_data.get(doc_id);
+            const doc_data = _docs_data.get(doc_id);
 
             console.log(`\tterm: ${t} - Step 3.1`);
+            console.log(`\tdoc_data: ${doc_data}`);
 
             // Compute the TF part of the BM25 scoring.
             const score_tf = tf(doc_data.words.get(t), doc_data.length,
                 avg_length);
+            console.log(`\tTF: ${score_tf}`);
             const new_score = score_tf * score_idf;
+            console.log(`\tnew_score: ${new_score}`);
 
             console.log(`\tterm: ${t} - Step 3.2`);
 
             // Find the partial score for the current document.
-            old_score = retrieval.get(doc_id);
+            let old_score = retrieval.get(doc_id);
             if (old_score === undefined) { old_score = 0.0; }
+            console.log(`\told_score: ${old_score}`);
 
             console.log(`\tterm: ${t} - Step 3.3`);
 
             // Update the partial score of the current document.
             const score = old_score + new_score;
+            console.log(`\tscore: ${score}`);
             if (score > 0.0) {
                 retrieval.set(doc_id, score);
             }
 
             console.log(`\tterm: ${t} - Step 3.4`);
+            console.log(`\tretrieval: ${retrieval}`);
         }
     }
 
