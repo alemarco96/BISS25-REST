@@ -107,7 +107,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         let doc_data = analyze_document(doc_text);
         _docs_data.set(doc_id, doc_data);
 
-        printMap(doc_data);
+        console.log(JSON.stringify(_docs_data));
 
         // Update the inverted index.
         for (let [k, v] of doc_data) {
@@ -118,13 +118,13 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
             _inverted_index.set(k, new_v);
         }
 
+        console.log(JSON.stringify(_inverted_index));
+
         // Update the sum of lengths.
         _sum_length += doc_data.get("length");
         //_sum_length += doc_data.length;
 
         console.log(`\tInternal data updated`);
-        printMap(_docs_data);
-        printMap(_inverted_index);
         console.log(`\t${_sum_length}`);
 
         res.sendStatus(200, `Document ${doc_id} created.`);
