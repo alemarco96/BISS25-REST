@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(`\tfetch() called`);
 
-        const data = await response.json();
+        //const data = await response.json();
 
-        console.log(`\tresponse: ${data}`);
+        //console.log(`\tresponse: ${data}`);
 
         if (response.ok) {
             console.log(`\tAdd Document ${doc_id} Performed Successfully!`);
