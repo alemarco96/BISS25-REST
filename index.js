@@ -138,7 +138,6 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
 
         // Update the sum of lengths.
         _sum_length += doc_data.get("length");
-        //_sum_length += doc_data.length;
 
         console.log(`\tInternal data updated`);
         console.log(`\t${_sum_length}`);
@@ -324,7 +323,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
             console.log(`\tdoc_data.words.get(t):`, typeof(doc_data.get("words").get(t)), doc_data.get("words").get(t), "\n");
 
             // Compute the TF part of the BM25 scoring.
-            const score_tf = tf(doc_data.get("words").get(t), doc_data.length, avg_length);
+            const score_tf = tf(doc_data.get("words").get(t), doc_data.get("length"), avg_length);
             console.log(`\tTF: ${score_tf}`);
             const new_score = score_tf * score_idf;
             console.log(`\tnew_score: ${new_score}`);
