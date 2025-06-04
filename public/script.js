@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         console.log(`\tfetch() called`);
 
+        console.log(response);
+
         const data = await response.json();
         console.log(`\tresponse: ${data}`);
 
