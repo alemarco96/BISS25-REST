@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const doc_id = document.getElementById("get_doc_id").value;
         console.log(`get_document(): ${doc_id}`);
 
-        const response = await fetch(`${BASE_URL}/docs/:doc_id`, {
+        const response = await fetch(`${BASE_URL}/docs/${doc_id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
