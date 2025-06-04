@@ -89,8 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const get_doc_text = document.getElementById("get_doc_text");
                 const data = await response.json();
-                console.log(`\tresponse: ${data}`);
-                printMap(data);
+                console.log(`\tresponse:`, data);
                 get_doc_text.value = data.doc_text;
             } else {
                 throw new Error(`Get Document ${doc_id} has failed...`);
@@ -125,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const num_docs = 5;
 
-            console.log(`perform_search(): ${terms}`);
+            console.log(`perform_search():`, terms);
 
             const response = await fetch(`${BASE_URL}/search?query=${terms}&num_docs=${num_docs}`, {
                 method: 'GET',
@@ -156,8 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const score_result_5 = document.getElementById('score_result_5');
 
                 const data = await response.json();
-                console.log(`\tresponse: ${data}`);
-                printMap(data);
+                console.log(`\tresponse:`, data);
                 if (data.num_results >= 1) {
                     id_result_1.value = data.docs[0][0];
                     score_result_1.value = data.docs[0][1];
