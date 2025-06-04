@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             });
             console.log(`\tfetch() called`);
-            console.log(response);
+            //console.log(response);
 
             if (response.ok) {
                 console.log(`\tGet Document ${doc_id} Performed Successfully!`);
