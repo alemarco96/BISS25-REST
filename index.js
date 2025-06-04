@@ -357,12 +357,20 @@ app.get(`${BASE_URL}/search`, (req, res) => {
     console.log(`\tSorting performed`);
     console.log(retrieval);
     console.log(typeof(retrieval));
-    retrieval = result.slice(0, num_docs);
-    retrieval = new Map(retrieval);
 
-    result = new Map();
-    result.set("num_results", result.length);
-    result.set("docs", result);
+    let num_result = retrieval.length;
+    if (num_result > num_docs) { num_result = num_docs; }
+
+    const docs_result = new Map();
+    for (let i = 0; i < num_result; i += 1) {
+        const _k = retrieval[i][0];
+        const _v = retrieval[i][1];
+        docs_result.set(_k, _v);
+    }
+
+    const result = new Map();
+    result.set("num_results", num_result);
+    result.set("docs", docs_result);
     res.send(result);
 });
 
