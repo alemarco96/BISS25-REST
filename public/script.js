@@ -25,10 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const doc_id = document.getElementById("add_doc_id").textContent;
         const doc_text = document.getElementById("add_doc_text").textContent;
         
-        const add_doc_result = document.getElementById("add_doc_result");
-        add_doc_result.textContent = `${doc_id} = ${doc_text}`;
+        console.log(`add_document(): ${doc_id} = ${doc_text}`);
 
-        /*
         const response = await fetch(BASE_URL + '/docs', {
             method: 'POST',
             headers: {
@@ -40,16 +38,22 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         });
 
+        console.log(`\tfetch() called`);
+
         const data = await response.json();
 
+        console.log(`\tresponse: ${data}`);
+
         if (response.ok) {
+            console.log(`\tAdd Document ${doc_id} Performed Successfully!`);
+
             const add_doc_result = document.getElementById("add_doc_result");
-            add_doc_result.textContent = "Add Document Performed Successfully!";
+            add_doc_result.textContent = `Add Document ${doc_id} Performed Successfully!`;
         } else {
+            console.log(`\tError: ${data.error || `Unknown error`}`);
             showError(data.error || 'Unknown error');
             // throw new Error(data.error || 'Unknown error');
         }
-        */
     }
 
 
@@ -57,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
         error_div.classList.add('hidden');
 
         const doc_id = document.getElementById("get_doc_id").textContent;
+
+        console.log(`get_document(): ${doc_id}`);
 
         const response = await get(BASE_URL + '/doc/:doc_id', {
             method: 'POST',
@@ -68,12 +74,19 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         });
 
+        console.log(`\tfetch() called`);
+
         const data = await response.json();
 
+        console.log(`\tresponse: ${data}`);
+
         if (response.ok) {
+            console.log(`\tGet Document ${doc_id} Performed Successfully!`);
+
             const get_doc_text = document.getElementById("get_doc_text");
             get_doc_text.textContent = data.doc_text;
         } else {
+            console.log(`\tError: ${data.error || `Unknown error`}`);
             showError(data.error || 'Unknown error');
             // throw new Error(data.error || 'Unknown error');
         }
@@ -101,6 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const num_docs = 5;
 
+        console.log(`perform_search(): ${terms}`);
+
         const response = await get(BASE_URL + '/search', {
             method: 'POST',
             headers: {
@@ -112,9 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         });
 
+        console.log(`\tfetch() called`);
+
         const data = await response.json();
 
+        console.log(`\tresponse: ${data}`);
+
         if (response.ok) {
+            console.log(`\tSearch Performed Successfully!`);
+
             const id_result_1 = document.getElementById('id_result_1');
             const id_result_2 = document.getElementById('id_result_2');
             const id_result_3 = document.getElementById('id_result_3');
@@ -147,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 score_result_5.textContent = data.docs[4][1];
             }
         } else {
+            console.log(`\tError: ${data.error || `Unknown error`}`);
             showError(data.error || 'Unknown error');
             // throw new Error(data.error || 'Unknown error');
         }
