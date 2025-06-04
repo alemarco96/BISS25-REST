@@ -86,7 +86,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         const doc_id = req.body.doc_id;
         const doc_text = req.body.doc_text;
 
-        console.log(`POST /docs(): ${doc_id} = ${doc_text}`);
+        console.log(`POST /docs: ${doc_id} = ${doc_text}`);
 
         // Determine whether a document with the same id does already exist.
         if (_docs_data.has(doc_id)){
@@ -139,8 +139,10 @@ app.get(`${BASE_URL}/docs`, (req, res) => {
 
 // Obtain the text of an existing document.
 app.get(`${BASE_URL}/docs/:doc_id`, (req, res) => {
-    // Extract the input data from the request body.
-    const doc_id = req.body.doc_id;
+    // Extract the input data from the request parameters.
+    const doc_id = req.params.doc_id;
+
+    console.log(`GET /docs/:doc_id: ${doc_id}`);
 
     // Determine whether a document with the same id does already exist.
     if (!_docs_data.has(doc_id)){
@@ -154,9 +156,9 @@ app.get(`${BASE_URL}/docs/:doc_id`, (req, res) => {
 
 // Update the text of an existing document.
 app.put(`${BASE_URL}/docs/:doc_id`, (req, res) => {
-    // Extract the input data from the request body.
-    const doc_id = req.body.doc_id;
-    const doc_text = req.body.doc_text;
+    // Extract the input data from the request parameters.
+    const doc_id = req.params.doc_id;
+    const doc_text = req.params.doc_text;
 
     // Determine whether a document with the same id does already exist.
     if (!_docs_data.has(doc_id)){
@@ -206,8 +208,8 @@ app.put(`${BASE_URL}/docs/:doc_id`, (req, res) => {
 
 // Delete an existing document.
 app.delete(`${BASE_URL}/docs/:doc_id`, (req, res) => {
-    // Extract the input data from the request body.
-    const doc_id = req.body.doc_id;
+    // Extract the input data from the request parameters.
+    const doc_id = req.params.doc_id;
 
     // Determine whether a document with the same id does already exist.
     if (!_docs_data.has(doc_id)) {
