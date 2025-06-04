@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(`get_document(): ${doc_id}`);
 
-        const response = await get(`${BASE_URL}/docs/:doc_id`, {
+        const response = await fetch(`${BASE_URL}/docs/:doc_id`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(`perform_search(): ${terms}`);
 
-        const response = await get(`${BASE_URL}/search`, {
+        const response = await fetch(`${BASE_URL}/search`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
