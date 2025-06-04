@@ -25,9 +25,9 @@ const BM25_B = 0.75;
 
 
 // Store the data associated with each document.
-let _docs_data = new Map();
+const _docs_data = new Map();
 // Auxilliary data structure used during search phase.
-let _inverted_index = new Map();
+const _inverted_index = new Map();
 // Store the sum of length of every document in the collection.
 let _sum_length = 0;
 
@@ -42,7 +42,7 @@ function analyze_document(doc_text) {
     console.log(doc_text);
     doc_text = doc_text.replaceAll(SPACE_REGEX, " ");
     console.log(doc_text);
-    let words = doc_text.split(" ");
+    const words = doc_text.split(" ");
     console.log(JSON.stringify(words), typeof(words), words.length);
 
     const doc_words = new Map();
@@ -58,7 +58,7 @@ function analyze_document(doc_text) {
     }
     console.log(JSON.stringify(doc_words));
 
-    result = new Map();
+    const result = new Map();
     result.set("text", doc_text);
     result.set("words", doc_words);
     result.set("length", words.length);
