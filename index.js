@@ -53,6 +53,7 @@ function analyze_document(doc_text) {
 
         doc_words.set(k, freq);
     }
+    console.log(JSON.stringify(doc_words));
 
     result = new Map();
     result.set("text", doc_text);
@@ -111,8 +112,9 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
 
         // Analyze the text, to determine its relevant features.
         let doc_data = analyze_document(doc_text);
-        _docs_data.set(doc_id, doc_data);
+        console.log(JSON.stringify(doc_data));
 
+        _docs_data.set(doc_id, doc_data);
         console.log(JSON.stringify(_docs_data));
 
         // Update the inverted index.
