@@ -50,11 +50,19 @@ function analyze_document(doc_text) {
         doc_words.set(k, freq);
     }
 
+    result = new Map();
+    result.set("text", doc_text);
+    result.set("words", doc_words);
+    result.set("length", words.length);
+    return result;
+
+    /*
     return {
         text: doc_text,
         words: doc_words,
         length: words.length
     };
+    */
 };
 
 
@@ -104,7 +112,8 @@ app.post(BASE_URL + "/docs", (req, res) => {
         }
 
         // Update the sum of lengths.
-        _sum_length += doc_data.length;
+        _sum_length += doc_data.get("length");
+        //_sum_length += doc_data.length;
 
         console.log(`\tInternal data updated`);
         console.log(`\t${_docs_data}`);
