@@ -67,16 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         });
         console.log(`\tfetch() called`);
-
         console.log(response);
-
-        const data = await response.json();
-        console.log(`\tresponse: ${data}`);
 
         if (response.ok) {
             console.log(`\tGet Document ${doc_id} Performed Successfully!`);
 
             const get_doc_text = document.getElementById("get_doc_text");
+            const data = await response.json();
+            console.log(`\tresponse: ${data}`);
             get_doc_text.value = data.doc_text;
         } else {
             console.log(`\tError: ${data.error || `Unknown error`}`);

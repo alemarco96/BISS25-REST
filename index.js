@@ -140,23 +140,28 @@ app.get(`${BASE_URL}/docs`, (req, res) => {
 
 // Obtain the text of an existing document.
 app.get(`${BASE_URL}/docs/:doc_id`, (req, res) => {
-    // Extract the input data from the request parameters.
-    const doc_id = req.params.doc_id;
+    try {
+        // Extract the input data from the request parameters.
+        const doc_id = req.params.doc_id;
 
-    console.log(`GET /docs/:doc_id: ${doc_id}`);
-    //console.log(req);
+        console.log(`GET /docs/:doc_id: ${doc_id}`);
+        //console.log(req);
 
-    // Determine whether a document with the same id does already exist.
-    if (!_docs_data.has(doc_id)){
-        res.sendStatus(409, `The document ${doc_id} does not exist.`);
-        return;
+        // Determine whether a document with the same id does already exist.
+        if (!_docs_data.has(doc_id)){
+            res.sendStatus(409, `The document ${doc_id} does not exist.`);
+            return;
+        }
+
+        result = new Map();
+        result.set("doc_text", _docs_data.get(doc_id).doc_text);
+        res.send(result);
+
+        //res.send({ doc_text: _docs_data.get(doc_id).doc_text });
     }
-
-    result = new Map();
-    result.set("doc_text", _docs_data.get(doc_id).doc_text);
-    res.send(result);
-
-    //res.send({ doc_text: _docs_data.get(doc_id).doc_text });
+    catch (error) {
+        console.error(error);
+    }
 });
 
 
