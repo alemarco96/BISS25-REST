@@ -94,7 +94,6 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         const doc_text = req.body.doc_text;
 
         console.log(`POST /docs: ${doc_id} = ${doc_text}`);
-        console.log(req);
 
         // Determine whether a document with the same id does already exist.
         if (_docs_data.has(doc_id)){
@@ -272,7 +271,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
     let avg_length = _sum_length / _docs_data.size;
 
     // Store the scores associated with the documents.
-    let retrieval = Map();
+    let retrieval = new Map();
 
     for (let t of terms) {
         // Remove any useless character.
