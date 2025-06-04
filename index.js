@@ -54,7 +54,7 @@ function analyze_document(doc_text) {
         console.log(`\t${k}: ${typeof(k)} => ${freq}: ${typeof(freq)}`);
 
         doc_words.set(k, freq);
-        console.log(JSON.stringify(doc_words));
+        console.log(doc_words, JSON.stringify(doc_words));
     }
     console.log(JSON.stringify(doc_words));
 
@@ -62,7 +62,7 @@ function analyze_document(doc_text) {
     result.set("text", doc_text);
     result.set("words", doc_words);
     result.set("length", words.length);
-    console.log(JSON.stringify(result));
+    console.log(result, JSON.stringify(result));
 
     return result;
 
@@ -114,7 +114,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         console.log(`\tDocument ${doc_id} is novel`);
 
         // Analyze the text, to determine its relevant features.
-        let doc_data = analyze_document(doc_text);
+        const doc_data = analyze_document(doc_text);
         console.log(JSON.stringify(doc_data));
 
         _docs_data.set(doc_id, doc_data);
