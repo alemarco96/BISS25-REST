@@ -125,15 +125,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log(`perform_search(): ${terms}`);
 
-            const response = await fetch(`${BASE_URL}/search`, {
+            const response = await fetch(`${BASE_URL}/search?query=${terms}&num_docs=${num_docs}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                },
+                }//,
+                /*
                 params: JSON.stringify({
-                    "terms": terms,
-                    "num_docs": num_docs
-                })
+                    //"terms": terms,
+                    //"num_docs": num_docs
+                    terms, num_docs
+                })*/
             });
             console.log(`\tfetch() called`);
 
