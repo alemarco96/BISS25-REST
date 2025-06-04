@@ -51,7 +51,7 @@ function analyze_document(doc_text) {
         if (freq === undefined) { freq = 0; }
         freq += 1;
 
-        console.log(`\t${k} => ${freq}`);
+        console.log(`\t${k}: ${typeof(k)} => ${freq}: ${typeof(freq)}`);
 
         doc_words.set(k, freq);
         console.log(JSON.stringify(doc_words));
