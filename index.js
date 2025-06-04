@@ -256,8 +256,8 @@ app.delete(`${BASE_URL}/docs/:doc_id`, (req, res) => {
 // Perform search using BM25 scoring function.
 app.get(`${BASE_URL}/search`, (req, res) => {
     // Extract the input data from the request body.
-    const terms = req.body.terms.split(";");
-    const num_docs = req.body.num_docs;
+    const terms = req.params.terms.split(";");
+    const num_docs = req.params.num_docs;
 
     if (_docs_data.size == 0) {
         res.sendStatus(403, `The documents collection is empty.`);

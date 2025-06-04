@@ -20,9 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    async function add_document() {
-        
+    function printMap(x) {
+        for (let [k, v] of x) {
+            console.log(`${k} => ${v}`);
+        }
+    }
 
+
+    async function add_document() {
         try {
             error_div.classList.add('hidden');
 
@@ -124,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
+                params: JSON.stringify({
                     terms,
                     num_docs
                 })
@@ -135,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             console.log(`\tresponse: ${data}`);
+            printMap(data);
 
             if (response.ok) {
                 console.log(`\tSearch Performed Successfully!`);
