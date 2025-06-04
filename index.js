@@ -122,6 +122,8 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
 
         // Update the inverted index.
         for (let [k, v] of doc_data) {
+            console.log(`\tfor loop - ${k}: ${typeof(k)} => ${v}: ${typeof(v)}`);
+
             let new_v = _inverted_index.get(k);
             if (new_v === undefined) { new_v = new Set(); }
             new_v.add(doc_id);
