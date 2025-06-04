@@ -45,7 +45,7 @@ function analyze_document(doc_text) {
     let words = doc_text.split(" ");
     console.log(JSON.stringify(words), typeof(words), words.length);
 
-    let doc_words = new Map();
+    const doc_words = new Map();
     for (let k of words) {
         let freq = doc_words.get(k);
         if (freq === undefined) { freq = 0; }
@@ -54,6 +54,7 @@ function analyze_document(doc_text) {
         console.log(`\t${k} => ${freq}`);
 
         doc_words.set(k, freq);
+        console.log(JSON.stringify(doc_words));
     }
     console.log(JSON.stringify(doc_words));
 
