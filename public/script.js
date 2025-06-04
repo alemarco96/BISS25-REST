@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log(`add_document(): ${doc_id} = ${doc_text}`);
 
-        const response = await fetch(BASE_URL + '/docs', {
+        const response = await fetch(`${BASE_URL}/docs`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(`get_document(): ${doc_id}`);
 
-        const response = await get(BASE_URL + '/doc/:doc_id', {
+        const response = await get(`${BASE_URL}/docs/${doc_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(`perform_search(): ${terms}`);
 
-        const response = await get(BASE_URL + '/search', {
+        const response = await get(`${BASE_URL}/search`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

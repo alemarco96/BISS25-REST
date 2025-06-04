@@ -80,7 +80,7 @@ function idf(n, N) {
 // --------------------------------------------------------------------------------
 
 // Post a new document.
-app.post(BASE_URL + "/docs", (req, res) => {
+app.post(`${BASE_URL}/docs`, (req, res) => {
     try {
         // Extract the input data from the request body.
         const doc_id = req.body.doc_id;
@@ -129,7 +129,7 @@ app.post(BASE_URL + "/docs", (req, res) => {
 
 
 // Obtain the list of all documents.
-app.get(BASE_URL + "/docs", (req, res) => {
+app.get(`${BASE_URL}/docs`, (req, res) => {
     res.send({
         num_docs: _docs_data.size,
         docs_id: _docs_data.keys()
@@ -138,7 +138,7 @@ app.get(BASE_URL + "/docs", (req, res) => {
 
 
 // Obtain the text of an existing document.
-app.get(BASE_URL + "/docs/:doc_id", (req, res) => {
+app.get(`${BASE_URL}/docs/:doc_id`, (req, res) => {
     // Extract the input data from the request body.
     const doc_id = req.body.doc_id;
 
@@ -153,7 +153,7 @@ app.get(BASE_URL + "/docs/:doc_id", (req, res) => {
 
 
 // Update the text of an existing document.
-app.put(BASE_URL + "/docs/:doc_id", (req, res) => {
+app.put(`${BASE_URL}/docs/:doc_id`, (req, res) => {
     // Extract the input data from the request body.
     const doc_id = req.body.doc_id;
     const doc_text = req.body.doc_text;
@@ -205,7 +205,7 @@ app.put(BASE_URL + "/docs/:doc_id", (req, res) => {
 
 
 // Delete an existing document.
-app.delete(BASE_URL + "/docs/:doc_id", (req, res) => {
+app.delete(`${BASE_URL}/docs/:doc_id`, (req, res) => {
     // Extract the input data from the request body.
     const doc_id = req.body.doc_id;
 
@@ -236,7 +236,7 @@ app.delete(BASE_URL + "/docs/:doc_id", (req, res) => {
 
 
 // Perform search using BM25 scoring function.
-app.get(BASE_URL + "/search", (req, res) => {
+app.get(`${BASE_URL}/search`, (req, res) => {
     // Extract the input data from the request body.
     const terms = req.body.terms.split(";");
     const num_docs = req.body.num_docs;
