@@ -255,7 +255,6 @@ app.delete(`${BASE_URL}/docs/:doc_id`, (req, res) => {
 
 // Perform search using BM25 scoring function.
 app.get(`${BASE_URL}/search`, (req, res) => {
-
     console.log(req);
 
     // Extract the input data from the request body.

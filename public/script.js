@@ -130,8 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                 },
                 params: JSON.stringify({
-                    terms,
-                    num_docs
+                    "terms": terms,
+                    "num_docs": num_docs
                 })
             });
 
