@@ -113,7 +113,7 @@ app.post(`${BASE_URL}/docs`, (req, res) => {
         for (let [k, v] of doc_data) {
             let new_v = _inverted_index.get(k);
             if (new_v === undefined) { new_v = new Set(); }
-            new_v.add(k);
+            new_v.add(doc_id);
 
             _inverted_index.set(k, new_v);
         }
@@ -254,7 +254,7 @@ app.delete(`${BASE_URL}/docs/:doc_id`, (req, res) => {
 
 // Perform search using BM25 scoring function.
 app.get(`${BASE_URL}/search`, (req, res) => {
-    console.log(req.query);
+    console.log(JSON.stringify(req.query));
 
     // Extract the input data from the request body.
     const terms = req.query.query.split(";");
@@ -269,9 +269,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         return;
     }
 
-    console.log("Inverted Index:\n\n")
-    printMap(_inverted_index);
-    console.log("\n\n");
+    console.log(`Inverted Index:\n\n${JSON.stringify(_inverted_index)}\n\n`)
 
     // Determine the average length of documents.
     let avg_length = _sum_length / _docs_data.size;
@@ -327,8 +325,7 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         }
     }
 
-    printMap(retrieval);
-    console.log(`\tRetrieval performed`);
+    console.log(`\tRetrieval performed:\n\n${JSON.stringify(retrieval)}\n\n`)
 
     // Sort the result map by score in descending order,
     // then keep only the top-k best documents.
