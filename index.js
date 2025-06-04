@@ -260,6 +260,8 @@ app.get(`${BASE_URL}/search`, (req, res) => {
     const terms = req.query.query.split(";");
     const num_docs = req.query.num_docs;
 
+    console.log(terms, terms.length, num_docs);
+
     console.log(`GET /search: ${terms} - ${num_docs}`)
 
     if (_docs_data.size == 0) {
@@ -305,6 +307,8 @@ app.get(`${BASE_URL}/search`, (req, res) => {
             }
         }
     }
+
+    printMap(retrieval);
 
     // Sort the result map by score in descending order,
     // then keep only the top-k best documents.
