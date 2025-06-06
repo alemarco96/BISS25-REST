@@ -175,7 +175,7 @@ app.get(`${BASE_URL}/docs/:doc_id`, (req, res) => {
         }
 
         result = new Map();
-        result.set("doc_text", _docs_data.get(doc_id).doc_text);
+        result.set("doc_text", _docs_data.get(doc_id).get("doc_text"));
         res.send(result);
     }
     catch (error) {
