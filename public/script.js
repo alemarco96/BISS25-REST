@@ -173,27 +173,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 const score_result_5 = document.getElementById('score_result_5');
 
                 const data = await response.json();
+                const results = Array.from(data.docs).sort((x, y) => y[1] - x[1]);
+
                 console.log(`- response.json():`, data);
                 console.log(`- response data:`, data.num_results, data.docs);
                 if (data.num_results >= 1) {
-                    id_result_1.value = data.docs[0][0];
-                    score_result_1.value = data.docs[0][1];
+                    id_result_1.value = results[0][0];
+                    score_result_1.value = results[0][1];
                 }
                 if (data.num_results >= 2) {
-                    id_result_2.value = data.docs[1][0];
-                    score_result_2.value = data.docs[1][1];
+                    id_result_2.value = results[1][0];
+                    score_result_2.value = results[1][1];
                 }
                 if (data.num_results >= 3) {
-                    id_result_3.value = data.docs[2][0];
-                    score_result_3.value = data.docs[2][1];
+                    id_result_3.value = results[2][0];
+                    score_result_3.value = results[2][1];
                 }
                 if (data.num_results >= 4) {
-                    id_result_4.value = data.docs[3][0];
-                    score_result_4.value = data.docs[3][1];
+                    id_result_4.value = results[3][0];
+                    score_result_4.value = results[3][1];
                 }
                 if (data.num_results >= 5) {
-                    id_result_5.value = data.docs[4][0];
-                    score_result_5.value = data.docs[4][1];
+                    id_result_5.value = results[4][0];
+                    score_result_5.value = results[4][1];
                 }
 
                 console.info("script.js: END perform_search()");
