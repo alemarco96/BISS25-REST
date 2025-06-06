@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
                 console.log(typeof(data), data);
-                console.log(data.keys());
-                console.log(data.doc_text);
+                //console.log(data.keys());
+                //console.log(data.doc_text);
                 console.log(data["doc_text"]);
                 document.getElementById("get_doc_text").value = data["doc_text"];
 
