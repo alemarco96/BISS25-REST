@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("**********");
                 for (const [_id, _score] of Object.entries(data.docs)) {
                     console.log(_id, "=>", _score);
+                }
                 console.log("**********");
 
                 let idx = 0;
