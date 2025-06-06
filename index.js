@@ -174,10 +174,10 @@ app.get(`${BASE_URL}/docs/:doc_id`, (req, res) => {
             return;
         }
 
-        console.log("doc_text", _docs_data.get(doc_id).get("doc_text"));
+        console.log("doc_text", _docs_data.get(doc_id).get("text"));
 
         result = new Map();
-        result.set("doc_text", _docs_data.get(doc_id).get("doc_text"));
+        result.set("doc_text", _docs_data.get(doc_id).get("text"));
         res.send(result);
     }
     catch (error) {
