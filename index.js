@@ -374,10 +374,14 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         docs_result.set(_k, _v);
     }
 
+    /*
     const result = new Map();
     result.set("num_results", num_result);
     result.set("docs", docs_result);
     res.send(result);
+    */
+
+    res.send({"num_results": num_result, "docs": docs_result});
 });
 
 
