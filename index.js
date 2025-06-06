@@ -372,6 +372,8 @@ app.get(`${BASE_URL}/search`, (req, res) => {
         const _k = retrieval[i][0];
         const _v = retrieval[i][1];
         docs_result.set(_k, _v);
+
+        console.log("- ", i, ": ", _k, "=>", _v);
     }
 
     /*
