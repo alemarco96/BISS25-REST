@@ -179,6 +179,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(`- response data:`, data.num_results, data.docs);
                 console.log("- results:", results);
 
+                let idx = 0;
+                for (const [_id, _score] of data.docs) {
+                    if (idx == 0) {
+                        id_result_1.value = _id;
+                        score_result_1.value = _score;
+                    }
+                    if (idx == 1) {
+                        id_result_2.value = _id;
+                        score_result_2.value = _score;
+                    }
+                    if (idx == 2) {
+                        id_result_3.value = _id;
+                        score_result_3.value = _score;
+                    }
+                    if (idx == 3) {
+                        id_result_4.value = _id;
+                        score_result_4.value = _score;
+                    }
+                    else { break; }
+
+                    idx += 1;
+                }
+
+                /*
                 if (data.num_results >= 1) {
                     id_result_1.value = results[0][0];
                     score_result_1.value = results[0][1];
@@ -199,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     id_result_5.value = results[4][0];
                     score_result_5.value = results[4][1];
                 }
+                */
 
                 console.info("script.js: END perform_search()");
                 console.info("**************************************************");
