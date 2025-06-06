@@ -90,9 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(`\tGet Document ${doc_id} Performed Successfully!`);
 
                 const data = await response.json();
-                console.log(data);
+                console.log(typeof(data), data);
                 console.log(data.doc_text);
-                document.getElementById("get_doc_text").value = data.doc_text;
+                console.log(data["doc_text"]);
+                document.getElementById("get_doc_text").value = data["doc_text"];
 
                 console.info("script.js: END get_document()");
                 console.info("**************************************************");
