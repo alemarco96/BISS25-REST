@@ -367,13 +367,15 @@ app.get(`${BASE_URL}/search`, (req, res) => {
     let num_result = retrieval.length;
     if (num_result > num_docs) { num_result = num_docs; }
 
-    const docs_result = new Map();
+    //const docs_result = new Map();
+    const docs_result = {};
     for (let i = 0; i < num_result; i += 1) {
         const _k = retrieval[i][0];
         const _v = retrieval[i][1];
-        docs_result.set(_k, _v);
-
         console.log("- ", i, ": ", _k, "=>", _v);
+
+        //docs_result.set(_k, _v);
+        docs_result[_k] = _v;
     }
 
     /*
