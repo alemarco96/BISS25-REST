@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("- results:", results);
 
                 let idx = 0;
-                for (const [_id, _score] of data.docs) {
+                for (const [_id, _score] of Object.entries(data.docs)) {
                     if (idx == 0) {
                         id_result_1.value = _id;
                         score_result_1.value = _score;
