@@ -172,6 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 console.log(`- response.json():`, data);
 
+                console.log("**********");
+                for (const [_id, _score] of Object.entries(data.docs)) {
+                    console.log(_id, "=>", _score);
+                console.log("**********");
+
                 let idx = 0;
                 for (const [_id, _score] of Object.entries(data.docs)) {
                     console.log(_id, "=>", _score);
