@@ -21,11 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function add_document() {
         try {
+            console.info("**************************************************");
+            console.info("script.js: START add_document()");
+
             error_tb.value = ``;
 
             const doc_id = document.getElementById("add_doc_id").value;
             const doc_text = document.getElementById("add_doc_text").value;        
-            console.log(`add_document(): ${doc_id} = ${doc_text}`);
+            console.log(`- doc_id:`, doc_id);
+            console.log(`- doc_text:`, doc_text);
 
             const response = await fetch(`${BASE_URL}/docs`, {
                 method: 'POST',
@@ -37,31 +41,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     doc_text
                 })
             });
-            console.log(`\tfetch() called`);
+            console.log(`- fetch() called:`, response.status, response.statusText);
 
             if (response.ok) {
-                console.log(`\tAdd Document ${doc_id} Performed Successfully!`);
-
-                const add_doc_result = document.getElementById("add_doc_result");
-                add_doc_result.value = `Add Document ${doc_id} Performed Successfully!`;
+                console.log(`- Add Document ${doc_id} Performed Successfully!`);
+                document.getElementById("add_doc_result").value = `OK!`;
+            
+                console.info("script.js: END add_document()");
+                console.info("**************************************************");
             } else {
+                document.getElementById("add_doc_result").value = `No :(`;
                 throw new Error(`Add Document ${doc_id} has failed...`);
             }
         }
         catch (error) {
             console.error(error);
             showError(error);
+
+            console.info("script.js: END add_document()");
+            console.info("**************************************************");
         }
     }
 
 
     async function get_document() {
         try {
+            console.info("**************************************************");
+            console.info("script.js: START get_document()");
+
             error_tb.value = ``;
             document.getElementById("get_doc_text").value = ``;
 
             const doc_id = document.getElementById("get_doc_id").value;
-            console.log(`get_document(): ${doc_id}`);
+            console.log(`- doc_id: `, doc_id);
 
             const response = await fetch(`${BASE_URL}/docs/${doc_id}`, {
                 method: 'GET',
@@ -72,29 +84,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     doc_id
                 })
             });
-            console.log(`\tfetch() called`);
-            //console.log(response);
+            console.log(`- fetch() called:`, response.status, response.statusText);
 
             if (response.ok) {
                 console.log(`\tGet Document ${doc_id} Performed Successfully!`);
 
-                const get_doc_text = document.getElementById("get_doc_text");
                 const data = await response.json();
-                console.log(`\tresponse:`, data);
-                get_doc_text.value = data.doc_text;
+                console.log(data);
+                console.log(data.doc_text);
+                document.getElementById("get_doc_text").value = data.doc_text;
+
+                console.info("script.js: END get_document()");
+                console.info("**************************************************");
             } else {
+                console.info();
                 throw new Error(`Get Document ${doc_id} has failed...`);
             }
         }
         catch (error) {
             console.error(error);
             showError(error);
+
+            console.info("script.js: END get_document()");
+            console.info("**************************************************");
         }
     }
 
 
     async function perform_search() {
         try {
+            console.info("**************************************************");
+            console.info("script.js: START perform_search()");
+
             error_tb.value = ``;
             document.getElementById("id_result_1").value = ``;
             document.getElementById("score_result_1").value = ``;
@@ -125,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const num_docs = 5;
 
-            console.log(`perform_search():`, terms);
+            console.log(`- terms:`, terms);
 
             const response = await fetch(`${BASE_URL}/search?query=${terms}&num_docs=${num_docs}`, {
                 method: 'GET',
@@ -133,10 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                 }
             });
-            console.log(`\tfetch() called`);
+            console.log(`- fetch() called:`, response.status, response.statusText);
 
             if (response.ok) {
-                console.log(`\tSearch Performed Successfully!`);
+                console.log(`- Search Performed Successfully!`);
 
                 const id_result_1 = document.getElementById('id_result_1');
                 const id_result_2 = document.getElementById('id_result_2');
@@ -150,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const score_result_5 = document.getElementById('score_result_5');
 
                 const data = await response.json();
-                console.log(`\tresponse:`, data);
-                console.log(data.num_results, data.docs);
+                console.log(`- response.json():`, data);
+                console.log(`- response data:`, data.num_results, data.docs);
                 if (data.num_results >= 1) {
                     id_result_1.value = data.docs[0][0];
                     score_result_1.value = data.docs[0][1];
@@ -172,6 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     id_result_5.value = data.docs[4][0];
                     score_result_5.value = data.docs[4][1];
                 }
+
+                console.info("script.js: END perform_search()");
+                console.info("**************************************************");
             } else {
                 throw new Error(`Perform search has failed...`);
             }
@@ -179,6 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
         catch (error) {
             console.error(error);
             showError(error);
+
+            console.info("script.js: END perform_search()");
+            console.info("**************************************************");
         }
     }
 });
