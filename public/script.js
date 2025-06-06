@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const get_btn = document.getElementById('get_btn');
     const search_btn = document.getElementById('search_btn');
 
-    const error_div = document.getElementById('error');
+    const error_tb = document.getElementById('error_message');
 
 
     add_btn.addEventListener('click', add_document);
@@ -15,23 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function showError(message) {
-        error_div.value = message;
-        error_div.classList.remove('hidden');
-    }
-
-
-    function printMap(x) {
-        for (let [k, v] of x) {
-            console.log(`${k} => ${v}`);
-        }
+        error_tb.value = message;
     }
 
 
     async function add_document() {
         try {
-            const add_doc_result = document.getElementById("add_doc_result");
-            add_doc_result.value = ``;
-            error_div.classList.add('hidden');
+            error_tb.value = ``;
 
             const doc_id = document.getElementById("add_doc_id").value;
             const doc_text = document.getElementById("add_doc_text").value;        
@@ -67,7 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function get_document() {
         try {
-            error_div.classList.add('hidden');
+            error_tb.value = ``;
+            document.getElementById("get_doc_text").value = ``;
 
             const doc_id = document.getElementById("get_doc_id").value;
             console.log(`get_document(): ${doc_id}`);
@@ -104,7 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function perform_search() {
         try {
-            error_div.classList.add('hidden');
+            error_tb.value = ``;
+            document.getElementById("id_result_1").value = ``;
+            document.getElementById("score_result_1").value = ``;
+            document.getElementById("id_result_2").value = ``;
+            document.getElementById("score_result_2").value = ``;
+            document.getElementById("id_result_3").value = ``;
+            document.getElementById("score_result_3").value = ``;
+            document.getElementById("id_result_4").value = ``;
+            document.getElementById("score_result_4").value = ``;
+            document.getElementById("id_result_5").value = ``;
+            document.getElementById("score_result_5").value = ``;
 
             const flag1 = document.getElementById("chb_search_term_1").checked;
             const flag2 = document.getElementById("chb_search_term_2").checked;
@@ -130,13 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                }//,
-                /*
-                params: JSON.stringify({
-                    //"terms": terms,
-                    //"num_docs": num_docs
-                    terms, num_docs
-                })*/
+                }
             });
             console.log(`\tfetch() called`);
 
