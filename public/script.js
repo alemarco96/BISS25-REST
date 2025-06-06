@@ -177,6 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 console.log(`- response.json():`, data);
                 console.log(`- response data:`, data.num_results, data.docs);
+                console.log("- results:", results);
+
                 if (data.num_results >= 1) {
                     id_result_1.value = results[0][0];
                     score_result_1.value = results[0][1];
