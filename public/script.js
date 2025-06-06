@@ -87,13 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`- fetch() called:`, response.status, response.statusText);
 
             if (response.ok) {
-                console.log(`\tGet Document ${doc_id} Performed Successfully!`);
+                console.log(`- Get Document ${doc_id} Performed Successfully!`);
 
                 const data = await response.json();
-                console.log(typeof(data), data);
-                //console.log(data.keys());
-                //console.log(data.doc_text);
-                console.log(data["doc_text"]);
+                console.log(`- response.json():`, data);
                 document.getElementById("get_doc_text").value = data["doc_text"];
 
                 console.info("script.js: END get_document()");
@@ -173,14 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const score_result_5 = document.getElementById('score_result_5');
 
                 const data = await response.json();
-                const results = Array.from(data.docs).sort((x, y) => y[1] - x[1]);
-
                 console.log(`- response.json():`, data);
-                console.log(`- response data:`, data.num_results, data.docs);
-                console.log("- results:", results);
 
                 let idx = 0;
                 for (const [_id, _score] of Object.entries(data.docs)) {
+                    console.log(_id, "=>", _score);
+
                     if (idx == 0) {
                         id_result_1.value = _id;
                         score_result_1.value = _score;
@@ -197,33 +192,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         id_result_4.value = _id;
                         score_result_4.value = _score;
                     }
+                    if (idx == 4) {
+                        id_result_5.value = _id;
+                        score_result_5.value = _score;
+                    }
                     else { break; }
 
                     idx += 1;
                 }
-
-                /*
-                if (data.num_results >= 1) {
-                    id_result_1.value = results[0][0];
-                    score_result_1.value = results[0][1];
-                }
-                if (data.num_results >= 2) {
-                    id_result_2.value = results[1][0];
-                    score_result_2.value = results[1][1];
-                }
-                if (data.num_results >= 3) {
-                    id_result_3.value = results[2][0];
-                    score_result_3.value = results[2][1];
-                }
-                if (data.num_results >= 4) {
-                    id_result_4.value = results[3][0];
-                    score_result_4.value = results[3][1];
-                }
-                if (data.num_results >= 5) {
-                    id_result_5.value = results[4][0];
-                    score_result_5.value = results[4][1];
-                }
-                */
 
                 console.info("script.js: END perform_search()");
                 console.info("**************************************************");
