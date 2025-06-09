@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const add_btn = document.getElementById('add_btn');
     const get_btn = document.getElementById('get_btn');
     const search_btn = document.getElementById('search_btn');
-    const error_tb = document.getElementById('error_message');
+    //const error_tb = document.getElementById('error_message');
+    const error_div = document.getElementById('error');
 
 
     add_btn.addEventListener('click', add_document);
@@ -61,12 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function reset_error() {
-        document.getElementById("error_message").value = "";
+        //document.getElementById("error_message").value = "";
+
+        //error_div.value = "";
+        error_div.textContent = "";
+        error_div.classList.add("hidden");
     }
 
 
     function show_error(message) {
-        error_tb.value = message;
+        //error_tb.value = message;
+
+        //error_div.value = message;
+        error_div.textContent = message;
+        error_div.classList.remove("hidden");
     }
 
 
