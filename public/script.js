@@ -13,14 +13,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const BASE_URL = "https://biss25-rest.onrender.com/api/v1";
 
 
-    function reset_add() {
+    function reset_add_args() {
         document.getElementById("add_doc_id").value = "";
         document.getElementById("add_doc_text").value = "";
     }
 
 
-    function reset_get() {
+    function reset_add_results() {
+        document.getElementById("add_doc_result").value = "";
+    }
+
+
+    function reset_get_args() {
         document.getElementById("get_doc_id").value = "";
+    }
+
+
+    function reset_get_results() {
         document.getElementById("get_doc_text").value = "";
     }
 
@@ -66,11 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.info("**************************************************");
             console.info("script.js: START add_document()");
 
-            reset_get();
+            reset_add_results();
+            reset_get_args();
+            reset_get_results();
             reset_search_args();
             reset_search_results();
             reset_error();
-            document.getElementById("add_doc_result").value = ``;
 
             const doc_id = document.getElementById("add_doc_id").value;
             const doc_text = document.getElementById("add_doc_text").value;        
@@ -91,12 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 console.log(`- Add Document ${doc_id} Performed Successfully!`);
+
+                reset_add_args();
                 document.getElementById("add_doc_result").value = `OK!`;
             
                 console.info("script.js: END add_document()");
                 console.info("**************************************************");
             } else {
                 document.getElementById("add_doc_result").value = `No :(`;
+                
                 throw new Error(`Add Document ${doc_id} has failed...`);
             }
         }
@@ -115,11 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.info("**************************************************");
             console.info("script.js: START get_document()");
 
-            reset_add();
+            reset_add_args();
+            reset_add_results();
+            reset_get_results();
             reset_search_args();
             reset_search_results();
             reset_error();
-            document.getElementById("get_doc_text").value = ``;
 
             const doc_id = document.getElementById("get_doc_id").value;
             console.log(`- doc_id: `, doc_id);
@@ -140,12 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
                 console.log(`- response.json():`, data);
+
+                reset_get_args();
                 document.getElementById("get_doc_text").value = data["doc_text"];
 
                 console.info("script.js: END get_document()");
                 console.info("**************************************************");
             } else {
-                console.info();
                 throw new Error(`Get Document ${doc_id} has failed...`);
             }
         }
@@ -164,8 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.info("**************************************************");
             console.info("script.js: START perform_search()");
 
-            reset_add();
-            reset_get();
+            reset_add_args();
+            reset_add_results();
+            reset_get_args();
+            reset_get_results();
             reset_search_results();
             reset_error();
 
@@ -215,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(`- response.json():`, data);
 
                 console.log("**********");
+                reset_search_args();
                 for (const [_id, _score] of Object.entries(data.docs)) {
                     console.log(_id, "=>", _score);
 
