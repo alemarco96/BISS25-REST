@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const add_btn = document.getElementById('add_btn');
     const get_btn = document.getElementById('get_btn');
     const search_btn = document.getElementById('search_btn');
-
     const error_tb = document.getElementById('error_message');
 
 
@@ -14,7 +13,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const BASE_URL = "https://biss25-rest.onrender.com/api/v1";
 
 
-    function showError(message) {
+    function reset_add() {
+        document.getElementById("add_doc_id").value = "";
+        document.getElementById("add_doc_text").value = "";
+    }
+
+
+    function reset_get() {
+        document.getElementById("get_doc_id").value = "";
+        document.getElementById("get_doc_text").value = "";
+    }
+
+
+    function reset_search() {
+        document.getElementById("chb_search_term_1").checked = true;
+        document.getElementById("chb_search_term_2").checked = false;
+        document.getElementById("chb_search_term_3").checked = false;
+        document.getElementById("chb_search_term_4").checked = false;
+        document.getElementById("text_search_term_1").value = "";
+        document.getElementById("text_search_term_2").value = "";
+        document.getElementById("text_search_term_3").value = "";
+        document.getElementById("text_search_term_4").value = "";
+        document.getElementById("id_result_1").value = "";
+        document.getElementById("id_result_2").value = "";
+        document.getElementById("id_result_3").value = "";
+        document.getElementById("id_result_4").value = "";
+        document.getElementById("id_result_5").value = "";
+        document.getElementById("score_result_1").value = "";
+        document.getElementById("score_result_2").value = "";
+        document.getElementById("score_result_3").value = "";
+        document.getElementById("score_result_4").value = "";
+        document.getElementById("score_result_5").value = "";
+    }
+
+
+    function reset_error() {
+        document.getElementById("error_message").value = "";
+    }
+
+
+    function show_error(message) {
         error_tb.value = message;
     }
 
@@ -24,7 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.info("**************************************************");
             console.info("script.js: START add_document()");
 
-            error_tb.value = ``;
+            reset_get();
+            reset_search();
+            reset_error();
 
             const doc_id = document.getElementById("add_doc_id").value;
             const doc_text = document.getElementById("add_doc_text").value;        
@@ -56,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         catch (error) {
             console.error(error);
-            showError(error);
+            show_error(error);
 
             console.info("script.js: END add_document()");
             console.info("**************************************************");
@@ -102,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         catch (error) {
             console.error(error);
-            showError(error);
+            show_error(error);
 
             console.info("script.js: END get_document()");
             console.info("**************************************************");
@@ -115,17 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.info("**************************************************");
             console.info("script.js: START perform_search()");
 
-            error_tb.value = ``;
-            document.getElementById("id_result_1").value = ``;
-            document.getElementById("score_result_1").value = ``;
-            document.getElementById("id_result_2").value = ``;
-            document.getElementById("score_result_2").value = ``;
-            document.getElementById("id_result_3").value = ``;
-            document.getElementById("score_result_3").value = ``;
-            document.getElementById("id_result_4").value = ``;
-            document.getElementById("score_result_4").value = ``;
-            document.getElementById("id_result_5").value = ``;
-            document.getElementById("score_result_5").value = ``;
+            reset_add();
+            reset_search();
+            reset_error();
 
             const flag1 = document.getElementById("chb_search_term_1").checked;
             const flag2 = document.getElementById("chb_search_term_2").checked;
@@ -175,37 +207,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("**********");
                 for (const [_id, _score] of Object.entries(data.docs)) {
                     console.log(_id, "=>", _score);
-                }
-                console.log("**********");
 
-                let idx = 0;
-                for (const [_id, _score] of Object.entries(data.docs)) {
-                    console.log(_id, "=>", _score);
-
-                    if (idx == 0) {
+                    if (id_result_1.value === "") {
                         id_result_1.value = _id;
                         score_result_1.value = _score;
                     }
-                    if (idx == 1) {
+                    else if (id_result_2.value === "") {
                         id_result_2.value = _id;
                         score_result_2.value = _score;
                     }
-                    if (idx == 2) {
+                    else if (id_result_3.value === "") {
                         id_result_3.value = _id;
                         score_result_3.value = _score;
                     }
-                    if (idx == 3) {
+                    else if (id_result_4.value === "") {
                         id_result_4.value = _id;
                         score_result_4.value = _score;
                     }
-                    if (idx == 4) {
+                    else if (id_result_5.value === "") {
                         id_result_5.value = _id;
                         score_result_5.value = _score;
                     }
                     else { break; }
-
-                    idx += 1;
                 }
+                console.log("**********");
 
                 console.info("script.js: END perform_search()");
                 console.info("**************************************************");
@@ -215,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         catch (error) {
             console.error(error);
-            showError(error);
+            show_error(error);
 
             console.info("script.js: END perform_search()");
             console.info("**************************************************");
