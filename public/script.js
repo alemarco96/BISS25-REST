@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function reset_search() {
+    function reset_search_args() {
         document.getElementById("chb_search_term_1").checked = true;
         document.getElementById("chb_search_term_2").checked = false;
         document.getElementById("chb_search_term_3").checked = false;
@@ -34,6 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("text_search_term_2").value = "";
         document.getElementById("text_search_term_3").value = "";
         document.getElementById("text_search_term_4").value = "";
+    }
+
+
+    function reset_search_results() {
         document.getElementById("id_result_1").value = "";
         document.getElementById("id_result_2").value = "";
         document.getElementById("id_result_3").value = "";
@@ -63,8 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.info("script.js: START add_document()");
 
             reset_get();
-            reset_search();
+            reset_search_args();
+            reset_search_results();
             reset_error();
+            document.getElementById("add_doc_result").value = ``;
 
             const doc_id = document.getElementById("add_doc_id").value;
             const doc_text = document.getElementById("add_doc_text").value;        
@@ -109,7 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.info("**************************************************");
             console.info("script.js: START get_document()");
 
-            error_tb.value = ``;
+            reset_add();
+            reset_search_args();
+            reset_search_results();
+            reset_error();
             document.getElementById("get_doc_text").value = ``;
 
             const doc_id = document.getElementById("get_doc_id").value;
@@ -156,7 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.info("script.js: START perform_search()");
 
             reset_add();
-            reset_search();
+            reset_get();
+            reset_search_results();
             reset_error();
 
             const flag1 = document.getElementById("chb_search_term_1").checked;
